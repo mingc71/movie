@@ -1,0 +1,52 @@
+<h1 class="page-header">{{title}}</h1>
+<h2 ng-if="message">{{message}}</h2>
+<div class="list-group">
+    <a ng-repeat="item in subjects | limitTo :10:0" href="#/detail/{{item.id}}" class="list-group-item">
+        <span class="badge">{{item.rating.average}}</span>
+        <div class="media">
+            <div class="media-left">
+                <!--{{itme.images.small }}-->
+                <img class="media-object" ng-src="{{item.images.small }}" alt="{{item.title}}"/>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{item.title}}</h4>
+                <p>导演：
+                    <strong ng-repeat="d in item.directors">
+                        {{d.name + ($last?'':'、 ' )}}
+                    </strong>
+                </p>
+                <p>类型：<strong>{{item.genres.join('、')}}</strong></p>
+            </div>
+        </div>
+    </a>
+</div>
+
+<p ng-show="!loading">
+    总共：{{totalCout}}条记录，{{currentPage}}/{{totalPages}}页
+</p>
+
+<div class="mask" ng-show="loading">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+
+<nav ng-show="!loading">
+    <ul class="pager">
+        <li class="previous" ng-class="{disabled:currentPage <= 1}">
+            <a href="JavaScript:void(0);" ng-click="go(currentPage - 1)">
+            <span aria-hidden="true">
+                &larr;上一页
+            </span>
+            </a>
+        </li>
+        <li class="next" ng-class="{disabled:currentPage>=totalPages}">
+            <a href="JavaScript:void(0);" ng-click="go(currentPage+1)">
+                <span aria-hidden="true">
+                    下一页&rarr;
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>
